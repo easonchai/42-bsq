@@ -6,16 +6,17 @@
 /*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:14:42 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/08 17:59:13 by jkhong           ###   ########.fr       */
+/*   Updated: 2021/04/08 21:50:32 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <fcntl.h>
-#include <stdio.h> // TO REMOVE
+#include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"
 
+void	print_grid(int **grid, t_init init);
 void	print_err(void)
 {
 	write(1, "map error\n", 10);
@@ -27,7 +28,7 @@ int		get_len(t_init *init, int file)
 	int		grid_width;
 	int		newlines;
 	char	c;
-	
+
 	newlines = 0;
 	init_len = 0;
 	grid_width = 0;
@@ -79,12 +80,12 @@ int		test_input(t_init *init, t_charset *charset, int len, int file)
 	char	c;
 	int		i;
 	int		height;
-	
+
 	i = 0;
 	while (read(file, &c, 1))
 	{
 		if (c == '\n')
-			break;
+			break ;
 		buffer[i] = c;
 		i++;
 	}
@@ -98,12 +99,12 @@ int		test_input(t_init *init, t_charset *charset, int len, int file)
 	return (1);
 }
 
-int		give_int(char c, int **grid, int width, t_charset charset)
+int		give_int(char c, t_charset charset)
 {
 	if (c == charset.empty)
-		return (0);
-	else if (c == charset.obstacle)
 		return (1);
+	else if (c == charset.obstacle)
+		return (0);
 	else
 		return (-1);
 }
@@ -115,20 +116,24 @@ int		**make_grid(int file, t_charset charset, t_init init)
 	int		j;
 	char	c;
 
-	grid = malloc(sizeof(int *) * init.height);
+	grid = malloc(sizeof(int *) * init.width);
 	i = 0;
-	while (i < init.height)
+	while (i < init.width)
 	{
-		grid[i] = malloc(sizeof(int) * init.width);
+		grid[i] = malloc(sizeof(int) * init.height);
 		i++;
 	}
 	i = 0;
+	//printf("Height: %d, Width: %d\n", init.height, init.width);
 	while (read(file, &c, 1) > 0 && i < (init.height * init.width))
 	{
-		j = give_int(c, grid, init.width, charset);
+		//printf("i: %d, x: %d, y: %d\n", i, i % init.width, i / init.width);
+		j = give_int(c, charset);
 		if (j == -1 && c != '\n')
 			return (NULL);
-		grid[i / init.width][i % init.width] = j;
+		//printf("got\n");
+		grid[i % init.width][i / init.width] = j;
+		//printf("written\n");
 		if (c != '\n')
 			i++;
 	}
@@ -137,65 +142,51 @@ int		**make_grid(int file, t_charset charset, t_init init)
 
 void	free_grid(void)
 {
-	// TODO
-}
-
-void	print_grid(int **grid, t_init init)
-{
-	for (int i = 0; i < init.height; i++)
-	{
-		for (int x = 0; x < init.width; x++)
-		{
-			printf("%i ", grid[i][x]);;
-		}
-		printf("\n");
-	}
+	//TODO
 }
 
 void	open_file(char *filename)
 {
-	int 		file;
+	int			file;
 	t_init		init;
 	t_charset	charset;
 	int			init_len;
 	int			**grid;
 
+	file = open(filename, O_RDONLY);
+	if (file == -1)
+		print_err();
+	else
+	{	
+		init_len = get_len(&init, file);
 		file = open(filename, O_RDONLY);
-		if (file == -1)
+		if (!test_input(&init, &charset, init_len, file))
+		{
+			close(file);
 			print_err();
-		else
-		{	
-			init_len = get_len(&init, file);
-			file = open(filename, O_RDONLY);
-			if (!test_input(&init, &charset, init_len, file))
-			{
-				close(file);
-				print_err();
-			}
-			else
-			{
-				grid = make_grid(file, charset, init);
-				if (grid == NULL)
-				{
-					print_err();
-					return;
-				}
-				print_grid(grid, init);
-			}
 		}
+		else
+		{
+			grid = make_grid(file, charset, init);
+			if (grid == NULL)
+			{
+				print_err();
+				return ;
+			}
+			dissect_grid(grid, charset, init);
+		}
+	}
 }
 
 int		main(int argc, char *argv[])
 {
 	// TODO if (argc == 1)
-	
 	int			i;
 
 	i = 1;
-	while (i < argc) // loop through all of the files
+	while (i < argc)
 	{	
 		open_file(argv[i]);
-		// find charset (pass in init and charset addresses)
 		i++;
 	}
 }
