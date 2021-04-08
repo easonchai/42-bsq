@@ -21,8 +21,6 @@ void	print_err(void)
 	write(1, "map error\n", 10);
 }
 
-
-// return true or false
 int		get_len(t_init *init, int file)
 {
 	int		init_len;
@@ -43,16 +41,16 @@ int		get_len(t_init *init, int file)
 			newlines++;
 	}
 	close(file);
-	// assign length to init
 	init->width = grid_width;
 	return (init_len);
 }
+
 int		valid_input(char *init, int len) // return number
 {
 	int i;
 	int tmp;
 	int num;
-	
+
 	num = 0;
 	if (len < 4)
 		return (-1);
@@ -62,14 +60,10 @@ int		valid_input(char *init, int len) // return number
 		if (!(init[i] >= ' ' && init[i] <= '~'))
 			return (-1);
 		tmp = i + 1;
-		while (i >= (len + 3)  && tmp < len)
-		{
-			if (init[tmp] == init[i])
-				return (-1);
-			tmp++;
-		}
+		if (init[len - 1] == init[len - 2] == init[len - 3])
+			return (-1);
 		if (i < (len - 3))
-		{	
+		{
 			if (!(init[i] >= '0' && init[i] <= '9'))
 				return (-1);
 			num = (num * 10) + (init[i] - '0');
@@ -108,9 +102,7 @@ t_data	**make_grid(int file, t_charset charset, t_init init)
 {
 	t_data	**grid;
 	int		i;
-	int		check_len;
 	char	c;
-	int		num;
 
 	grid = malloc(sizeof(t_data *) * init.height);
 	i = 0;
@@ -155,27 +147,21 @@ void	print_grid(t_data **grid)
 	}
 }
 
-int		main(int argc, char *argv[])
+void	open_file(char *filename)
 {
-	// TODO if (argc == 1)
-	
-	int			i;
-	int			file;
+	int 		file;
 	t_init		init;
 	t_charset	charset;
 	int			init_len;
 	t_data		**grid;
 
-	i = 1;
-	while (i < argc) // loop through all of the files
-	{	
-		file = open(argv[i], O_RDONLY);
+		file = open(filename, O_RDONLY);
 		if (file == -1)
 			print_err();
 		else
 		{	
 			init_len = get_len(&init, file);
-			file = open(argv[i], O_RDONLY);
+			file = open(filename, O_RDONLY);
 			if (!test_input(&init, &charset, init_len, file))
 			{
 				close(file);
@@ -188,6 +174,18 @@ int		main(int argc, char *argv[])
 				print_grid(grid);
 			}
 		}
+}
+
+int		main(int argc, char *argv[])
+{
+	// TODO if (argc == 1)
+	
+	int			i;
+
+	i = 1;
+	while (i < argc) // loop through all of the files
+	{	
+		open_file(argv[i]);
 		// find charset (pass in init and charset addresses)
 		i++;
 	}
