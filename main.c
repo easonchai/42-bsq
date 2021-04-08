@@ -6,13 +6,14 @@
 /*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:14:42 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/08 16:56:37 by jkhong           ###   ########.fr       */
+/*   Updated: 2021/04/08 17:14:35 by jkhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h> // TO REMOVE
+#include <stdlib.h>
 #include "libft.h"
 
 void	print_err(void)
@@ -103,6 +104,34 @@ int		test_input(t_init *init, t_charset *charset, int len, int file)
 	return (1);
 }
 
+int		make_grid(int file, t_charset charset, t_init init)
+{
+	int		**grid;
+	int		i;
+	int		check_len;
+	char	c;
+
+	grid = malloc(sizeof(t_init *) * init.height);
+	i = 0;
+	while (i < init.height)
+	{
+		grid[i] = malloc(sizeof(t_init) * init.width);
+		i++;
+	}
+	i = 0;
+	while (read(file, &c, 1) > 0)
+	{	
+		write(1, &c, 1);
+		i++;
+	}
+	return (1);
+}
+
+void	free_grid(void)
+{
+	// TODO
+}
+
 int		main(int argc, char *argv[])
 {
 	// TODO if (argc == 1)
@@ -130,11 +159,8 @@ int		main(int argc, char *argv[])
 			}
 			else
 			{
-				printf("%i\n", init.height);
-				printf("%i\n", init.width);
-				printf("%c\n", charset.empty);
-				printf("%c\n", charset.obstacle);
-				printf("%c\n", charset.full);
+				// check if makegrid got errors
+				make_grid(file, charset, init);
 			}
 		}
 		// find charset (pass in init and charset addresses)
