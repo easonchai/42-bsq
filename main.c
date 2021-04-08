@@ -6,7 +6,7 @@
 /*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:14:42 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/08 17:14:35 by jkhong           ###   ########.fr       */
+/*   Updated: 2021/04/08 17:30:20 by jkhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,27 +104,38 @@ int		test_input(t_init *init, t_charset *charset, int len, int file)
 	return (1);
 }
 
-int		make_grid(int file, t_charset charset, t_init init)
+int		**make_grid(int file, t_charset charset, t_init init)
 {
 	int		**grid;
 	int		i;
 	int		check_len;
 	char	c;
+	int		num;
 
-	grid = malloc(sizeof(t_init *) * init.height);
+	grid = malloc(sizeof(t_data *) * init.height);
 	i = 0;
 	while (i < init.height)
 	{
-		grid[i] = malloc(sizeof(t_init) * init.width);
+		grid[i] = malloc(sizeof(t_data) * init.width);
 		i++;
 	}
 	i = 0;
 	while (read(file, &c, 1) > 0)
 	{	
-		write(1, &c, 1);
-		i++;
+		/*
+		if (i % init.width == 0 && c != '\n') TODO
+			return (NULL);
+		*/
+		if (c == charset.empty)
+			grid[i / init.width][i % init.width].c = 0;
+		else if (c == charset.obstacle)
+			grid[i / init.width][i % init.width].c = 1;
+		grid[i / init.width][i % init.width].x = i % init.width;
+		grid[i / init.width][i % init.width].y = i / init.width;
+		if (c != '\n')
+			i++;
 	}
-	return (1);
+	return (grid);
 }
 
 void	free_grid(void)
