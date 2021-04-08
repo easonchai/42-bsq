@@ -6,7 +6,7 @@
 /*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:14:42 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/08 17:30:20 by jkhong           ###   ########.fr       */
+/*   Updated: 2021/04/08 17:59:13 by jkhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ int		test_input(t_init *init, t_charset *charset, int len, int file)
 	return (1);
 }
 
-int		**make_grid(int file, t_charset charset, t_init init)
+t_data	**make_grid(int file, t_charset charset, t_init init)
 {
-	int		**grid;
+	t_data	**grid;
 	int		i;
 	int		check_len;
 	char	c;
@@ -120,7 +120,7 @@ int		**make_grid(int file, t_charset charset, t_init init)
 		i++;
 	}
 	i = 0;
-	while (read(file, &c, 1) > 0)
+	while (read(file, &c, 1) > 0 && i < (init.height * init.width))
 	{	
 		/*
 		if (i % init.width == 0 && c != '\n') TODO
@@ -143,6 +143,18 @@ void	free_grid(void)
 	// TODO
 }
 
+void	print_grid(t_data **grid)
+{
+	for (int i = 0; i < 9; i++)
+	{
+		for (int x = 0; x < 27; x++)
+		{
+			printf("%i ", grid[i][x].c);;
+		}
+		printf("\n");
+	}
+}
+
 int		main(int argc, char *argv[])
 {
 	// TODO if (argc == 1)
@@ -152,6 +164,7 @@ int		main(int argc, char *argv[])
 	t_init		init;
 	t_charset	charset;
 	int			init_len;
+	t_data		**grid;
 
 	i = 1;
 	while (i < argc) // loop through all of the files
@@ -171,7 +184,8 @@ int		main(int argc, char *argv[])
 			else
 			{
 				// check if makegrid got errors
-				make_grid(file, charset, init);
+				grid = make_grid(file, charset, init);
+				print_grid(grid);
 			}
 		}
 		// find charset (pass in init and charset addresses)
