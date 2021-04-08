@@ -45,7 +45,7 @@ int		get_len(t_init *init, int file)
 	return (init_len);
 }
 
-int		valid_input(char *init, int len) // return number
+int		valid_input(char *init, int len)
 {
 	int i;
 	int tmp;
@@ -98,32 +98,37 @@ int		test_input(t_init *init, t_charset *charset, int len, int file)
 	return (1);
 }
 
-t_data	**make_grid(int file, t_charset charset, t_init init)
+int		give_int(char c, int **grid, int width, t_charset charset)
 {
-	t_data	**grid;
+	if (c == charset.empty)
+		return (0);
+	else if (c == charset.obstacle)
+		return (1);
+	else
+		return (-1);
+}
+
+int		**make_grid(int file, t_charset charset, t_init init)
+{
+	int		**grid;
 	int		i;
+	int		j;
 	char	c;
 
-	grid = malloc(sizeof(t_data *) * init.height);
+	grid = malloc(sizeof(int *) * init.height);
 	i = 0;
 	while (i < init.height)
 	{
-		grid[i] = malloc(sizeof(t_data) * init.width);
+		grid[i] = malloc(sizeof(int) * init.width);
 		i++;
 	}
 	i = 0;
 	while (read(file, &c, 1) > 0 && i < (init.height * init.width))
-	{	
-		/*
-		if (i % init.width == 0 && c != '\n') TODO
+	{
+		j = give_int(c, grid, init.width, charset);
+		if (j == -1 && c != '\n')
 			return (NULL);
-		*/
-		if (c == charset.empty)
-			grid[i / init.width][i % init.width].c = 0;
-		else if (c == charset.obstacle)
-			grid[i / init.width][i % init.width].c = 1;
-		grid[i / init.width][i % init.width].x = i % init.width;
-		grid[i / init.width][i % init.width].y = i / init.width;
+		grid[i / init.width][i % init.width] = j;
 		if (c != '\n')
 			i++;
 	}
@@ -135,13 +140,13 @@ void	free_grid(void)
 	// TODO
 }
 
-void	print_grid(t_data **grid)
+void	print_grid(int **grid, t_init init)
 {
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < init.height; i++)
 	{
-		for (int x = 0; x < 27; x++)
+		for (int x = 0; x < init.width; x++)
 		{
-			printf("%i ", grid[i][x].c);;
+			printf("%i ", grid[i][x]);;
 		}
 		printf("\n");
 	}
@@ -153,7 +158,7 @@ void	open_file(char *filename)
 	t_init		init;
 	t_charset	charset;
 	int			init_len;
-	t_data		**grid;
+	int			**grid;
 
 		file = open(filename, O_RDONLY);
 		if (file == -1)
@@ -169,9 +174,13 @@ void	open_file(char *filename)
 			}
 			else
 			{
-				// check if makegrid got errors
 				grid = make_grid(file, charset, init);
-				print_grid(grid);
+				if (grid == NULL)
+				{
+					print_err();
+					return;
+				}
+				print_grid(grid, init);
 			}
 		}
 }
