@@ -6,7 +6,7 @@
 /*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:14:42 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/08 21:50:32 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/09 20:47:22 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int		give_int(char c, t_charset charset)
 		return (-1);
 }
 
+#include <stdio.h>
 int		**make_grid(int file, t_charset charset, t_init init)
 {
 	int		**grid;
@@ -124,19 +125,18 @@ int		**make_grid(int file, t_charset charset, t_init init)
 		i++;
 	}
 	i = 0;
-	//printf("Height: %d, Width: %d\n", init.height, init.width);
 	while (read(file, &c, 1) > 0 && i < (init.height * init.width))
 	{
-		//printf("i: %d, x: %d, y: %d\n", i, i % init.width, i / init.width);
 		j = give_int(c, charset);
-		if (j == -1 && c != '\n')
+		if ((c == '\n' && (i % init.width != 0)) ||
+				(j == -1 && c != '\n'))
 			return (NULL);
-		//printf("got\n");
 		grid[i % init.width][i / init.width] = j;
-		//printf("written\n");
 		if (c != '\n')
 			i++;
 	}
+	if (i != (init.height * init.width))
+		return (NULL);
 	return (grid);
 }
 
@@ -161,10 +161,7 @@ void	open_file(char *filename)
 		init_len = get_len(&init, file);
 		file = open(filename, O_RDONLY);
 		if (!test_input(&init, &charset, init_len, file))
-		{
-			close(file);
 			print_err();
-		}
 		else
 		{
 			grid = make_grid(file, charset, init);
@@ -175,6 +172,7 @@ void	open_file(char *filename)
 			}
 			dissect_grid(grid, charset, init);
 		}
+		close(file);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:09:06 by echai             #+#    #+#             */
-/*   Updated: 2021/04/08 21:07:31 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/09 20:14:04 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@ typedef	struct	s_answer
 	int	x;
 	int	y;
 }				t_answer;
-
-typedef	struct	s_data
-{
-	int	c;
-	int	x;
-	int	y;
-}				t_data;
 
 typedef	struct	s_init
 {
@@ -41,7 +34,7 @@ typedef	struct	s_charset
 }				t_charset;
 
 t_answer solve(t_answer ans, t_init init, int **grid);
-void	display_map(int **grid, t_answer ans, t_init init, t_charset c);
+void	display_map(int **grid, t_answer a, t_init i, t_charset c);
 void	dissect_grid(int **grid, t_charset c, t_init init);
 
 #endif

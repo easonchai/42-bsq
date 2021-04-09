@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   displaymap.c                                       :+:      :+:    :+:   */
+/*   ft_display.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 20:27:19 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/08 21:52:06 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/09 20:28:34 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,34 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-int		is_filled(int x, int y, t_answer ans)
+int		is_filled(int x, int y, t_answer a)
 {
-	if (x > (ans.x - ans.max) && x <= ans.x &&
-			y > (ans.y - ans.max) && y <= ans.y)
+	if (x > (a.x - a.max) && x <= a.x &&
+			y > (a.y - a.max) && y <= a.y)
 		return (1);
 	return (0);
 }
 
-void	display_map(int **grid, t_answer ans, t_init init, t_charset c)
+void	display_map(int **grid, t_answer a, t_init i, t_charset c)
 {
-	int	i;
+	int	in;
 	int j;
 
-	i = 0;
-	while (i < init.height)
+	in = 0;
+	while (in < i.height)
 	{
 		j = 0;
-		while (j < init.width)
+		while (j < i.width)
 		{
-			if (is_filled(j, i, ans))
+			if (is_filled(j, in, a))
 				ft_putchar(c.full);
-			else if (grid[j][i] == 0)
+			else if (grid[j][in] == 0)
 				ft_putchar(c.obstacle);
 			else
 				ft_putchar(c.empty);
 			j++;
 		}
 		ft_putchar('\n');
-		i++;
+		in++;
 	}
 }

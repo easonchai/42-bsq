@@ -6,16 +6,16 @@
 /*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 13:53:41 by echai             #+#    #+#             */
-/*   Updated: 2021/04/08 21:52:44 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/09 20:27:35 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-void	display_map(int **grid, t_answer ans, t_init init, t_charset charset);
+void		display_map(int **grid, t_answer a, t_init i, t_charset c);
 
-int		get_min(int a, int b, int c)
+int			get_min(int a, int b, int c)
 {
 	int min;
 
@@ -27,17 +27,17 @@ int		get_min(int a, int b, int c)
 	return (min);
 }
 
-t_answer solve(t_answer ans, t_init init, int **grid)
+t_answer	solve(t_answer ans, t_init init, int **grid)
 {
 	int min;
 	int	i;
 	int	j;
 
-	i = 1;
-	while (i < init.height)
+	i = 0;
+	while (++i < init.height)
 	{
-		j = 1;
-		while (j < init.width)
+		j = 0;
+		while (++j < init.width)
 		{
 			if (grid[j][i])
 			{
@@ -51,15 +51,13 @@ t_answer solve(t_answer ans, t_init init, int **grid)
 					ans.y = i;
 				}
 			}
-			j++;
 		}
-		i++;
 	}
 	return (ans);
 }
 
 #include <stdio.h>
-void	print_grid(int **grid, t_init init)
+void		print_grid(int **grid, t_init init)
 {
 	int i;
 	int j;
@@ -77,7 +75,7 @@ void	print_grid(int **grid, t_init init)
 	}
 }
 
-void	dissect_grid(int **grid, t_charset c, t_init init)
+void		dissect_grid(int **grid, t_charset c, t_init init)
 {
 	t_answer	ans;
 
