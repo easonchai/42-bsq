@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_display.c                                       :+:      :+:    :+:   */
+/*   displaymap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/08 14:16:05 by echai             #+#    #+#             */
-/*   Updated: 2021/04/08 20:19:27 by echai            ###   ########.fr       */
+/*   Created: 2021/04/08 20:27:19 by jkhong            #+#    #+#             */
+/*   Updated: 2021/04/08 21:52:06 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <unistd.h>
+#include "libft.h"
 
 void	ft_putchar(char c)
 {
@@ -26,20 +26,20 @@ int		is_filled(int x, int y, t_answer ans)
 	return (0);
 }
 
-void	print_output(int **grid, t_answer ans, t_init init, t_charset c)
+void	display_map(int **grid, t_answer ans, t_init init, t_charset c)
 {
 	int	i;
 	int j;
 
-	i = 1;
-	while (i < init.height + 1)
+	i = 0;
+	while (i < init.height)
 	{
-		j = 1;
-		while (j < init.width + 1)
+		j = 0;
+		while (j < init.width)
 		{
-			if (is_filled(i - 1, j - 1, ans))
+			if (is_filled(j, i, ans))
 				ft_putchar(c.full);
-			else if (grid[i][j] == 0)
+			else if (grid[j][i] == 0)
 				ft_putchar(c.obstacle);
 			else
 				ft_putchar(c.empty);
