@@ -33,6 +33,13 @@ typedef	struct	s_charset
 	char	full;
 }				t_charset;
 
+void	ft_putchar(char c);
+void    free_grid(int **grid, int col);
+
+int		get_len(t_init *init, int file);
+int		valid_input(char *init, int len);
+int		test_input(t_init *init, t_charset *charset, int len, int file);
+
 t_answer solve(t_answer ans, t_init init, int **grid);
 void	display_map(int **grid, t_answer a, t_init i, t_charset c);
 void	dissect_grid(int **grid, t_charset c, t_init init);

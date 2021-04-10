@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
 
 int		is_filled(int x, int y, t_answer a)
 {
