@@ -1,6 +1,7 @@
 NAME = bsq
 
-SRCS = srcs/ft_solve.c srcs/ft_display.c srcs/main.c srcs/ft_utils.c
+SRCS = srcs/ft_solve.c srcs/ft_display.c srcs/main.c srcs/ft_utils.c \
+	   srcs/ft_checkinput.c srcs/ft_makegrid.c
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -15,5 +16,6 @@ re:		fclean all
 
 ${NAME}:	${SRCS}
 			gcc ${CFLAGS} ${SRCS} -o ${NAME}
+			rm srcs/*.o
 
 .PHONY:		all clean fclean re

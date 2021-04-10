@@ -6,7 +6,7 @@
 /*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:14:42 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/10 14:46:27 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/10 15:09:40 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,27 @@ void	open_file(char *filename)
 		process_file(file, filename);
 }
 
+void	handle_stdin(void)
+{
+	char	buf;
+	int		lines;
+
+	lines = 0;
+	while(read(0, &buf, 1))
+	{
+		if (c == '\n' && !lines)
+		{
+			
+		}
+	}
+}
+
 int		main(int argc, char *argv[])
 {
 	int			i;
 
-	// TODO if (argc == 1)
+	if (argc == 1)
+		handle_stdin();
 	i = 1;
 	while (i < argc)
 	{
