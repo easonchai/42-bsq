@@ -2,24 +2,18 @@ NAME = bsq
 
 SRCS = srcs/ft_solve.c srcs/ft_display.c srcs/main.c srcs/ft_utils.c
 
-INCLUDES = includes
-
-OBJS = ${SRCS:.c=.o}
-
 CFLAGS = -Wall -Wextra -Werror
-
-.c.o: 
-		gcc ${CFLAGS} -I -c $< 
 
 all:	${NAME}
 
 clean:
-		rm -f ${OBJS}
+		rm -f ${NAME}
 
 fclean:	clean
-		rm -f ${NAME}
 
 re:		fclean all
 
-${NAME}:	${OBJS}
-		
+${NAME}:	${SRCS}
+			gcc ${CFLAGS} ${SRCS} -o ${NAME}
+
+.PHONY:		all clean fclean re
