@@ -6,12 +6,13 @@
 /*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 21:00:01 by echai             #+#    #+#             */
-/*   Updated: 2021/04/10 12:57:42 by jkhong           ###   ########.fr       */
+/*   Updated: 2021/04/12 11:45:13 by jkhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 void	ft_putchar(char c)
 {
@@ -29,4 +30,21 @@ void	free_grid(int **grid, int col)
 		i++;
 	}
 	free(grid);
+}
+
+char	*std_input_file(void)
+{
+	int		file;
+	char	*filename;
+	char	c;
+
+	filename = "stdin_map";
+	file = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 644);
+	while (read(0, &c, 1) != 0)
+	{
+		write(file, &c, 1);
+	}
+	ft_putchar('\n');
+	close(file);
+	return (filename);
 }
