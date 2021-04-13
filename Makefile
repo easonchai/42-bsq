@@ -13,14 +13,14 @@ OBJS = ${SRCS:.c=.o}
 all:	${NAME}
 
 clean:
-		rm -f ${NAME}
+		rm -f ${OBJS}
 
 fclean:	clean
+		rm -f ${NAME}
 
 re:		fclean all
 
 ${NAME}:	${OBJS}
 			gcc -o ${NAME} ${OBJS}
-			rm srcs/*.o
 
 .PHONY:		all clean fclean re
