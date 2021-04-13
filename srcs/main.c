@@ -6,7 +6,7 @@
 /*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:14:42 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/13 09:29:32 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/13 10:15:50 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	print_err(void)
 {
-	write(1, "map error\n", 10);
+	write(2, "map error\n", 10);
 }
 
 void	process_file(int file, char *filename)
@@ -69,4 +69,5 @@ int		main(int argc, char *argv[])
 		open_file(argv[i]);
 		i++;
 	}
+	return (0);
 }
