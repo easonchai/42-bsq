@@ -6,7 +6,7 @@
 /*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:41:58 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/10 09:42:02 by jkhong           ###   ########.fr       */
+/*   Updated: 2021/04/13 10:00:15 by jkhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int		valid_input(char *init, int len)
 		if (!(init[i] >= ' ' && init[i] <= '~'))
 			return (-1);
 		tmp = i + 1;
-		if (init[len - 1] == init[len - 2] == init[len - 3])
+		if (init[len - 1] == init[len - 2] ||
+			init[len - 1] == init[len - 3] || init[len - 2] == init[len - 3])
 			return (-1);
 		if (i < (len - 3))
 		{
