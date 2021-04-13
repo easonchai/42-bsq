@@ -6,7 +6,7 @@
 /*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 13:53:41 by echai             #+#    #+#             */
-/*   Updated: 2021/04/13 09:14:14 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/13 09:25:01 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,32 @@ int			get_min(int a, int b, int c)
 	return (min);
 }
 
+int			min_handler(int **grid, int i, int j)
+{
+	int	min;
+
+	if (i == 0 || j == 0)
+		return (0);
+	min = get_min(grid[j - 1][i - 1], grid[j][i - 1],
+			grid[j - 1][i]);
+	return (min);
+}
+
 t_answer	solve(t_answer ans, t_init init, int **grid)
 {
 	int min;
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < init.height)
+	i = -1;
+	while (++i < init.height)
 	{
-		j = 0;
-		while (j < init.width)
+		j = -1;
+		while (++j < init.width)
 		{
 			if (grid[j][i])
 			{
-				min = get_min(grid[j - 1][i - 1], grid[j][i - 1],
-						grid[j - 1][i]);
+				min = min_handler(grid, i, j);
 				grid[j][i] = min + 1;
 				if (min + 1 > ans.max)
 				{
