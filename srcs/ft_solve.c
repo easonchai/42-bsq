@@ -6,7 +6,7 @@
 /*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 13:53:41 by echai             #+#    #+#             */
-/*   Updated: 2021/04/10 14:47:46 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/13 09:14:14 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ t_answer	solve(t_answer ans, t_init init, int **grid)
 	int	j;
 
 	i = 0;
-	while (++i < init.height)
+	while (i < init.height)
 	{
 		j = 0;
-		while (++j < init.width)
+		while (j < init.width)
 		{
 			if (grid[j][i])
 			{

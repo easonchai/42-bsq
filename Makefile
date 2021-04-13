@@ -5,6 +5,11 @@ SRCS = srcs/ft_solve.c srcs/ft_display.c srcs/main.c srcs/ft_utils.c \
 
 CFLAGS = -Wall -Wextra -Werror
 
+OBJS = ${SRCS:.c=.o}
+
+.c.o:
+	gcc ${CFLAGS} -c $< -o ${<:.c=.o}
+
 all:	${NAME}
 
 clean:
@@ -14,8 +19,8 @@ fclean:	clean
 
 re:		fclean all
 
-${NAME}:	${SRCS}
-			gcc ${CFLAGS} ${SRCS} -o ${NAME}
+${NAME}:	${OBJS}
+			gcc -o ${NAME} ${OBJS}
 			rm srcs/*.o
 
 .PHONY:		all clean fclean re
