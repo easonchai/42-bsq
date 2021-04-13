@@ -6,7 +6,7 @@
 /*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:14:42 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/10 15:09:40 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/12 11:44:15 by jkhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include "libft.h"
+
+char	*std_input_file();
 
 void	print_err(void)
 {
@@ -57,28 +59,13 @@ void	open_file(char *filename)
 		process_file(file, filename);
 }
 
-void	handle_stdin(void)
-{
-	char	buf;
-	int		lines;
-
-	lines = 0;
-	while(read(0, &buf, 1))
-	{
-		if (c == '\n' && !lines)
-		{
-			
-		}
-	}
-}
-
 int		main(int argc, char *argv[])
 {
-	int			i;
+	int	i;
 
-	if (argc == 1)
-		handle_stdin();
 	i = 1;
+	if (argc == 1)
+		open_file(std_input_file());
 	while (i < argc)
 	{
 		open_file(argv[i]);
