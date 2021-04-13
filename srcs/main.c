@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkhong <jkhong@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:14:42 by jkhong            #+#    #+#             */
-/*   Updated: 2021/04/12 11:44:15 by jkhong           ###   ########.fr       */
+/*   Updated: 2021/04/13 09:29:32 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include "libft.h"
-
-char	*std_input_file();
 
 void	print_err(void)
 {

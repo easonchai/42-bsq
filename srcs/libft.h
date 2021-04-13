@@ -6,7 +6,7 @@
 /*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 14:09:06 by echai             #+#    #+#             */
-/*   Updated: 2021/04/10 14:48:25 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/13 09:29:26 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int				**make_grid(int file, t_charset charset, t_init init);
 t_answer		solve(t_answer ans, t_init init, int **grid);
 void			display_map(int **grid, t_answer a, t_init i, t_charset c);
 void			dissect_grid(int **grid, t_charset c, t_init init);
+char			*std_input_file();
 
 #endif

@@ -6,14 +6,12 @@
 /*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 13:53:41 by echai             #+#    #+#             */
-/*   Updated: 2021/04/13 09:25:01 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/13 09:29:05 by echai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
-
-void		display_map(int **grid, t_answer a, t_init i, t_charset c);
 
 int			get_min(int a, int b, int c)
 {
