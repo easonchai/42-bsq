@@ -6,7 +6,7 @@
 /*   By: echai <echai@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 21:00:01 by echai             #+#    #+#             */
-/*   Updated: 2021/04/13 09:21:06 by echai            ###   ########.fr       */
+/*   Updated: 2021/04/13 10:44:13 by jkhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*std_input_file(void)
 	{
 		write(file, &c, 1);
 	}
-	ft_putchar('\n');
 	close(file);
 	return (filename);
 }
